@@ -2,9 +2,8 @@ import streamlit as st
 import google.generativeai as genai
 
 # --- ZERO KHARCH AUTOMATIC API SETUP ---
+# Isme aapki asli API key aur sahi format set kar diya hai
 AUTO_API_KEY = "AQ.Ab8RN6K0XtkMXWKrEuel_pFZVHc0JOQql262hJsOq-bEjrMEXA"
-
-
 
 st.set_page_config(page_title="AI Multi-Tool Hub", layout="centered")
 genai.configure(api_key=AUTO_API_KEY)
@@ -27,7 +26,7 @@ if option == "YouTube Script Writer":
     if st.button("Generate Script"):
         if topic:
             with st.spinner("AI Script likh raha hai..."):
-                model = genai.GenerativeModel('gemini-1.5-flash')
+                model = genai.GenerativeModel('gemini-2.5-flash')
                 prompt = f"Write a viral YouTube script in Hinglish for a {duration}-minute video on the topic: '{topic}'. Include a catchy intro hook and engaging storytelling tone."
                 response = model.generate_content(prompt)
                 st.success("Aapki Script Taiyar Hai! 👇")
@@ -43,7 +42,7 @@ elif option == "SEO Blog Post Writer":
     if st.button("Generate Blog"):
         if blog_topic:
             with st.spinner("Blog content create ho raha hai..."):
-                model = genai.GenerativeModel('gemini-1.5-flash')
+                model = genai.GenerativeModel('gemini-2.5-flash')
                 prompt = f"Write a 500-word SEO optimized blog post in Hinglish on the topic: '{blog_topic}'. Use proper headings, subheadings, and a professional yet conversational tone."
                 response = model.generate_content(prompt)
                 st.success("Blog Post Taiyar Hai! 👇")
@@ -60,7 +59,7 @@ elif option == "Resume Optimizer":
     if st.button("Optimize Resume"):
         if current_resume and job_desc:
             with st.spinner("Resume optimize ho raha hai..."):
-                model = genai.GenerativeModel('gemini-1.5-flash')
+                model = genai.GenerativeModel('gemini-2.5-flash')
                 prompt = f"Analyze this resume: '{current_resume}' against this Job Description: '{job_desc}'. Rewrite the resume bullets to match the core skills required, making it 100% ATS-friendly. Output in Hinglish mixed with professional English terms."
                 response = model.generate_content(prompt)
                 st.success("Optimized Resume Points! 👇")
