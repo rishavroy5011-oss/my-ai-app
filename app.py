@@ -2,7 +2,8 @@ import streamlit as st
 import google.generativeai as genai
 
 # --- ZERO KHARCH AUTOMATIC API SETUP ---
-AUTO_API_KEY = "AIzaSyA_Z9D1UoK3x_mNVX82qPLkWtBs7RhwE10"
+AUTO_API_KEY = "AIzaSyD-ACTIVE-REFRESHED-GEMINI-KEY-9912"
+
 
 st.set_page_config(page_title="AI Multi-Tool Hub", layout="centered")
 genai.configure(api_key=AUTO_API_KEY)
