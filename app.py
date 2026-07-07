@@ -1,6 +1,5 @@
 import streamlit as st
-import urllib.request
-import urllib.parse
+import requests
 
 st.set_page_config(page_title="AI Multi-Tool Hub", layout="centered")
 
@@ -12,22 +11,25 @@ option = st.sidebar.selectbox(
     ("YouTube Script Writer", "SEO Blog Post Writer", "Resume Optimizer")
 )
 
-# 100% Stable Free Engine without any extra library errors
+# 100% Solid Request System with JSON Payload
 def ask_free_ai(prompt_text):
     try:
-        encoded_prompt = urllib.parse.quote(prompt_text)
-        url = f"https://pollinations.ai{encoded_prompt}"
+        url = "https://text.pollinations.ai/"
+        payload = {
+            "messages": [
+                {"role": "user", "content": prompt_text}
+            ],
+            "model": "openai",  # Defends and uses stable text engine
+            "private": True
+        }
         
-        # Adding headers to bypass any server connection blocking
-        req = urllib.request.Request(
-            url, 
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-        )
-        
-        with urllib.request.urlopen(req, timeout=15) as response:
-            return response.read().decode('utf-8')
+        response = requests.post(url, json=payload, timeout=20)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return "Server thoda heavy load par hai, please 5 seconds baad dobara try karein!"
     except Exception as e:
-        return "Server abhi thoda busy hai, please ek baar dubara 'Generate' button dabayein!"
+        return "Network timeout! Please ek baar dubara 'Generate' button dabayein."
 
 # 1. YouTube Script
 if option == "YouTube Script Writer":
