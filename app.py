@@ -2,7 +2,8 @@ import streamlit as st
 import google.generativeai as genai
 
 # --- ZERO KHARCH AUTOMATIC API SETUP ---
-AQ.Ab8RN6K0XtkMXWKrEuel_pFZVHc0JOQql262hJsOq-bEjrMEXA
+AUTO_API_KEY = "AQ.Ab8RN6K0XtkMXWKrEuel_pFZVHc0JOQql262hJsOq-bEjrMEXA"
+
 
 
 st.set_page_config(page_title="AI Multi-Tool Hub", layout="centered")
