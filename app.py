@@ -1,20 +1,27 @@
 import streamlit as st
-import google.generativeai as genai
-
-# --- AUTOMATIC KEY CONFIGURATION ---
-AUTO_API_KEY = "AQ.Ab8RN6K0XtkMXWKrEuel_pFZVHc0JOQql262hJsOq-bEjrMEXA"
+import requests
 
 st.set_page_config(page_title="AI Multi-Tool Hub", layout="centered")
-genai.configure(api_key=AUTO_API_KEY)
 
 st.title("🚀 All-In-One AI Creator Hub")
 st.write("Bina kisi kharch ke apni scripts, blogs aur resumes generate karein.")
 
-# Sidebar Selection Menu
 option = st.sidebar.selectbox(
     "Aapko kya kaam karna hai?",
     ("YouTube Script Writer", "SEO Blog Post Writer", "Resume Optimizer")
 )
+
+# Free Open AI Worker Function
+def ask_free_ai(prompt_text):
+    try:
+        url = f"https://pollinations.ai{requests.utils.quote(prompt_text)}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return "Server thoda busy hai, please ek baar dubara generate button dabayein!"
+    except:
+        return "Connection error! Please internet check karein."
 
 # 1. YouTube Script
 if option == "YouTube Script Writer":
@@ -25,11 +32,10 @@ if option == "YouTube Script Writer":
     if st.button("Generate Script"):
         if topic:
             with st.spinner("AI Script likh raha hai..."):
-                model = genai.GenerativeModel('gemini-2.5-flash')
                 prompt = f"Write a viral YouTube script in Hinglish for a {duration}-minute video on the topic: '{topic}'. Include a catchy intro hook and engaging storytelling tone."
-                response = model.generate_content(prompt)
+                result = ask_free_ai(prompt)
                 st.success("Aapki Script Taiyar Hai! 👇")
-                st.write(response.text)
+                st.write(result)
         else:
             st.error("Please enter a topic first!")
 
@@ -41,11 +47,10 @@ elif option == "SEO Blog Post Writer":
     if st.button("Generate Blog"):
         if blog_topic:
             with st.spinner("Blog content create ho raha hai..."):
-                model = genai.GenerativeModel('gemini-2.5-flash')
                 prompt = f"Write a 500-word SEO optimized blog post in Hinglish on the topic: '{blog_topic}'. Use proper headings, subheadings, and a professional yet conversational tone."
-                response = model.generate_content(prompt)
+                result = ask_free_ai(prompt)
                 st.success("Blog Post Taiyar Hai! 👇")
-                st.write(response.text)
+                st.write(result)
         else:
             st.error("Please enter a blog topic!")
 
@@ -58,10 +63,9 @@ elif option == "Resume Optimizer":
     if st.button("Optimize Resume"):
         if current_resume and job_desc:
             with st.spinner("Resume optimize ho raha hai..."):
-                model = genai.GenerativeModel('gemini-2.5-flash')
                 prompt = f"Analyze this resume: '{current_resume}' against this Job Description: '{job_desc}'. Rewrite the resume bullets to match the core skills required, making it 100% ATS-friendly. Output in Hinglish mixed with professional English terms."
-                response = model.generate_content(prompt)
+                result = ask_free_ai(prompt)
                 st.success("Optimized Resume Points! 👇")
-                st.write(response.text)
+                st.write(result)
         else:
             st.error("Dono fields bharna zaroori hai!")
